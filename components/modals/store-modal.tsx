@@ -1,12 +1,11 @@
 "use client";
 
-import * as z from "zod";
-import { useForm } from "react-hook-form";
-import { useState } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useState } from "react";
+import { useForm } from "react-hook-form";
+import * as z from "zod";
 
-import { Modal } from "@/components/ui/modal";
-import { useStoreModal } from "@/hooks/use-store-modal";
+import { Button } from "@/components/ui/button";
 import {
   Form,
   FormControl,
@@ -16,7 +15,8 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
+import { Modal } from "@/components/ui/modal";
+import { useStoreModal } from "@/hooks/use-store-modal";
 import axios from "axios";
 import { toast } from "react-hot-toast";
 
@@ -43,7 +43,7 @@ export const StoreModal = () => {
       setLoading(true);
       const response = await axios.post("/api/stores", values);
 
-      toast.success("ストアを作成しました。");
+      window.location.assign(`${response.data.id}`);
     } catch (error) {
       console.log(error);
       toast.error("エラーが発生しました。");
