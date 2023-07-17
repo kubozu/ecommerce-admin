@@ -25,7 +25,7 @@ import {
   Store as StoreIcon,
 } from "lucide-react";
 import { useParams, useRouter } from "next/navigation";
-import { useState } from "react";
+import { useRef, useState } from "react";
 
 type PopoverTriggerProps = React.ComponentPropsWithoutRef<
   typeof PopoverTrigger
@@ -51,10 +51,12 @@ function StoreSwitcher({ className, items = [] }: StoreSwitcherProps) {
   const [open, setOpen] = useState(false);
 
   const onStoreSelect = (store: { value: string; label: string }) => {
+    if (isImeOn.current) return;
     setOpen(false);
     router.push(`${store.value}`);
   };
-
+  // 日本語入力対応
+  const isImeOn = useRef(false);
   return (
     <Popover open={open} onOpenChange={setOpen}>
       <PopoverTrigger asChild>
@@ -74,12 +76,17 @@ function StoreSwitcher({ className, items = [] }: StoreSwitcherProps) {
       <PopoverContent className="w-[200px] p-0">
         <Command>
           <CommandList>
-            <CommandInput placeholder="検索はこちら" />
+            <CommandInput
+              onCompositionStart={() => (isImeOn.current = true)}
+              onCompositionEnd={() => (isImeOn.current = false)}
+              placeholder="検索はこちら"
+            />
             <CommandEmpty>ストアが見つかりません</CommandEmpty>
             <CommandGroup heading="ストア一覧">
               {formattedItems.map((store) => (
                 <CommandItem
                   key={store.value}
+                  value={store.label}
                   onSelect={() => onStoreSelect(store)}
                   className="text-sm"
                 >
