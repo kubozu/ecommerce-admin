@@ -53,7 +53,7 @@ function StoreSwitcher({ className, items = [] }: StoreSwitcherProps) {
   const onStoreSelect = (store: { value: string; label: string }) => {
     if (isImeOn.current) return;
     setOpen(false);
-    router.push(`${store.value}`);
+    router.push(`/${store.value}`);
   };
   // 日本語入力対応
   const isImeOn = useRef(false);
