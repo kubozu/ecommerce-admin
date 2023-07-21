@@ -4,10 +4,12 @@ import { redirect } from "next/navigation";
 import SettingsForm from "./components/settings-form";
 
 interface SettingsPageProps {
-  storeId: string;
+  params: {
+    storeId: string;
+  };
 }
 
-async function SettingsPage({ storeId }: SettingsPageProps) {
+async function SettingsPage({ params }: SettingsPageProps) {
   const user = auth();
   const userId = user.userId;
 
@@ -17,7 +19,7 @@ async function SettingsPage({ storeId }: SettingsPageProps) {
 
   const store = await prismadb.store.findFirst({
     where: {
-      id: storeId,
+      id: params.storeId,
       userId,
     },
   });
