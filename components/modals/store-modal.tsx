@@ -24,7 +24,7 @@ const formSchema = z.object({
   name: z.string().min(1),
 });
 
-export const StoreModal = () => {
+export function StoreModal() {
   const storeModal = useStoreModal();
 
   const [loading, setLoading] = useState(false);
@@ -98,4 +98,4 @@ export const StoreModal = () => {
       </div>
     </Modal>
   );
-};
+}
