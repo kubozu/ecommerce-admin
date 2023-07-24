@@ -75,6 +75,7 @@ function BillboardForm({ initialData }: BillboardFormProps) {
         await axios.post(`/api/${params.storeId}/billboards`, data);
       }
       router.refresh();
+      router.push(`/api/${params.storeId}/billboards/`);
       toast.success("Store updated.");
     } catch (error) {
       toast.error("Something went wrong.");
