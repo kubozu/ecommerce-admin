@@ -7,13 +7,6 @@ export async function GET(
   { params }: { params: { billboardId: string } }
 ) {
   try {
-    //ユーザーIDをclerkから取得
-    const { userId } = auth();
-
-    if (!userId) {
-      return new NextResponse("Unauthorized", { status: 401 });
-    }
-
     if (!params.billboardId) {
       return new NextResponse("Billboard id is Required", { status: 400 });
     }
@@ -72,7 +65,7 @@ export async function PATCH(
 
     const billboard = await prismadb.billboard.updateMany({
       where: {
-        id: params.storeId,
+        id: params.billboardId,
       },
       data: {
         label: label,

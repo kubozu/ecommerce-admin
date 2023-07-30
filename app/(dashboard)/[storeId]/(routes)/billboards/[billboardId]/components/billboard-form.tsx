@@ -75,7 +75,7 @@ function BillboardForm({ initialData }: BillboardFormProps) {
         await axios.post(`/api/${params.storeId}/billboards`, data);
       }
       router.refresh();
-      router.push(`/api/${params.storeId}/billboards/`);
+      router.push(`/${params.storeId}/billboards`);
       toast.success("Store updated.");
     } catch (error) {
       toast.error("Something went wrong.");
@@ -91,7 +91,7 @@ function BillboardForm({ initialData }: BillboardFormProps) {
         `/api/${params.storeId}/billboards/${params.billboardId}`
       );
       router.refresh();
-      router.push("/");
+      router.push(`/${params.storeId}/billboards`);
       toast.success("掲示板を削除しました");
     } catch (error) {
       toast.error("掲示板で利用中のカテゴリーを削除してから実行してください。");
