@@ -20,7 +20,7 @@ function AlertModal({ isOpen, onClose, onConfirm, loading }: AlertModalProps) {
 
   return (
     <Modal
-      title={"ストアを削除します。本当によろしいですか？"}
+      title={"削除します。本当によろしいですか？"}
       description={"この操作は取り消すことができません"}
       isOpen={isOpen}
       onClose={onClose}
