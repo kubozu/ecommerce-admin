@@ -13,7 +13,6 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import Heading from "@/components/ui/heading";
-import ImageUpload from "@/components/ui/image-upload";
 import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
 import UseOrigin from "@/hooks/use-origin";
@@ -32,7 +31,9 @@ interface ColorFormProps {
 
 const formSchema = z.object({
   name: z.string().min(1),
-  value: z.string().min(1),
+  value: z.string().min(4).regex(/^#/, {
+    message: "hex codeの文字列で入力してください。",
+  }),
 });
 
 type ColorFormValues = z.infer<typeof formSchema>;
@@ -154,11 +155,17 @@ function ColorForm({ initialData }: ColorFormProps) {
                 <FormItem>
                   <FormLabel>Value</FormLabel>
                   <FormControl>
-                    <Input
-                      disabled={loading}
-                      placeholder="カラー 値"
-                      {...field}
-                    />
+                    <div className=" flex items-center gap-x-4">
+                      <Input
+                        disabled={loading}
+                        placeholder="カラー 値"
+                        {...field}
+                      />
+                      <div
+                        className="border p-4 rounded-full"
+                        style={{ backgroundColor: field.value }}
+                      />
+                    </div>
                   </FormControl>
                   <FormMessage />
                 </FormItem>
